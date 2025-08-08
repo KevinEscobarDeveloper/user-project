@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - appnet
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  app:
+    image: ${ECR_IMAGE_URI}
+    container_name: springboot-app
+    restart: unless-stopped
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    environment:
+
+      MYSQL_R2DBC_URL: r2dbc:mysql://mysql:3306/${MYSQL_DATABASE}
+      MYSQL_R2DBC_USER: ${MYSQL_USER}
+      MYSQL_R2DBC_PASSWORD: ${MYSQL_PASSWORD}
+
+
+      SPRING_FLYWAY_ENABLED: "true"
+      SPRING_FLYWAY_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+      SPRING_FLYWAY_USER: ${MYSQL_USER}
+      SPRING_FLYWAY_PASSWORD: ${MYSQL_PASSWORD}
+
+
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILE}
+      PORT: ${APP_PORT}
+
+
+      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=75.0 -Dfile.encoding=UTF-8
+
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    networks:
+      - appnet
+
+volumes:
+  mysql_data:
+
+networks:
+  appnet:
+    driver: bridge

@@ -1,6 +1,5 @@
 package com.tecnica.prueba.adapters.out.database.mysql;
 
-import com.tecnica.prueba.adapters.model.mysql.ClientRole;
 import com.tecnica.prueba.adapters.model.mysql.RoleModel;
 import com.tecnica.prueba.adapters.out.repository.mysql.client.ClientRoleRepository;
 import com.tecnica.prueba.adapters.out.repository.mysql.client.RoleRepository;
@@ -16,11 +15,6 @@ public class ClientRoleAdapter implements ClientRolePort {
     private final ClientRoleRepository clientRoleRepository;
     private final RoleRepository roleRepository;
 
-    @Override
-    public Flux<Long> findRoleIdsByClientId(Long clientId) {
-        return clientRoleRepository.findAllByClientId(clientId)
-                .map(ClientRole::getRoleId);
-    }
 
     @Override
     public Flux<String> findRoleNamesByClientId(Long clientId) {

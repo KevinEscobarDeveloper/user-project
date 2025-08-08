@@ -7,7 +7,6 @@ import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Timer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -62,15 +61,6 @@ public class MicrometerMetricsAdapter implements MetricsPort {
         return Mono.defer(() -> {
             var sample = Timer.start(registry);
             return mono.doOnSuccess(v -> sample.stop(timer(metricName)))
-                    .doOnError(e -> sample.stop(timer(metricName)));
-        });
-    }
-
-    @Override
-    public <T> Flux<T> timeFlux(String metricName, Flux<T> flux) {
-        return Flux.defer(() -> {
-            var sample = Timer.start(registry);
-            return flux.doOnComplete(() -> sample.stop(timer(metricName)))
                     .doOnError(e -> sample.stop(timer(metricName)));
         });
     }

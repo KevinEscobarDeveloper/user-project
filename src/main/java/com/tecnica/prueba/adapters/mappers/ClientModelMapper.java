@@ -10,8 +10,9 @@ import org.mapstruct.factory.Mappers;
 public interface ClientModelMapper {
     ClientModelMapper INSTANCE = Mappers.getMapper(ClientModelMapper.class);
 
-    ClientModel toModel(ClientDto dto);
+    ClientModel toModel(Client dto);
     Client toDomain(ClientModel dto);
+    Client dtoToDomain(ClientDto dto);
 
 
 

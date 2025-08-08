@@ -10,7 +10,8 @@ import org.mapstruct.factory.Mappers;
 public interface ClientApplicationMapper {
     ClientApplicationMapper INSTANCE = Mappers.getMapper(ClientApplicationMapper.class);
 
-    ClientDtoResponse toClientResponse(ClientDto dto);
+    ClientDtoResponse toClientResponse(Client dto);
+    Client toDomain(ClientDto dto);
     ClientDtoResponse toClientFromDomain(Client dto);
 
 }

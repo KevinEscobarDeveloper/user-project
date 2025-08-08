@@ -4,7 +4,6 @@ import com.tecnica.prueba.adapters.mappers.ClientModelMapper;
 import com.tecnica.prueba.adapters.model.mysql.ClientRole;
 import com.tecnica.prueba.adapters.out.repository.mysql.client.ClientRepository;
 import com.tecnica.prueba.adapters.out.repository.mysql.client.ClientRoleRepository;
-import com.tecnica.prueba.application.dto.request.ClientDto;
 import com.tecnica.prueba.domain.entity.Client;
 import com.tecnica.prueba.domain.port.out.UserPort;
 import lombok.AllArgsConstructor;
@@ -21,8 +20,8 @@ public class ClientAdapter implements UserPort {
 
     @Override
     @Transactional
-    public Mono<Void> saveClient(ClientDto clientDto) {
-        return clientRepository.save(ClientModelMapper.INSTANCE.toModel(clientDto))
+    public Mono<Void> saveClient(Client client) {
+        return clientRepository.save(ClientModelMapper.INSTANCE.toModel(client))
                 .flatMap(savedClient -> {
                     ClientRole rel = new ClientRole();
                     rel.setClientId(savedClient.getId());
@@ -31,12 +30,6 @@ public class ClientAdapter implements UserPort {
                 })
                 .then()
                 .retry(3);
-    }
-
-    @Override
-    public Flux<Client> getAllClients() {
-        return clientRepository.findAll()
-                .map(ClientModelMapper.INSTANCE::toDomain);
     }
 
     @Override

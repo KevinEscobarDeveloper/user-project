@@ -1,6 +1,7 @@
 package com.tecnica.prueba.adapters.in;
 
-import com.tecnica.prueba.adapters.utils.ResponseBuilder;
+import com.tecnica.prueba.adapters.configuration.utils.ResponseBuilder;
+import com.tecnica.prueba.adapters.mappers.ClientModelMapper;
 import com.tecnica.prueba.application.dto.request.ClientDto;
 import com.tecnica.prueba.application.dto.response.ClientDtoResponse;
 import com.tecnica.prueba.application.dto.response.CreateResponseDto;
@@ -40,7 +41,7 @@ public class ClientController {
             @RequestBody @Valid ClientDto request,
             ServerHttpRequest httpRequest
     ) {
-        return this.userUseCase.saveClient(request)
+        return this.userUseCase.saveClient(ClientModelMapper.INSTANCE.dtoToDomain(request))
                 .map(clientDto -> {
                     CreateResponseDto<ClientDtoResponse> response = ResponseBuilder.build(clientDto, httpRequest);
                     String location = "/clients/";

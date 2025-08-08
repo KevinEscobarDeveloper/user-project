@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+.env
+kp-user-project.pem
+trust-ec2.json
 ### STS ###
 .apt_generated
 .classpath

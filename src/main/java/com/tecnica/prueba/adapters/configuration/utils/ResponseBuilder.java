@@ -1,4 +1,4 @@
-package com.tecnica.prueba.adapters.utils;
+package com.tecnica.prueba.adapters.configuration.utils;
 
 import com.tecnica.prueba.application.dto.response.CreateResponseDto;
 import org.springframework.http.server.reactive.ServerHttpRequest;
