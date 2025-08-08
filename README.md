@@ -17,7 +17,7 @@ Servicio REST **reactivo** con **arquitectura hexagonal**, persistencia **no blo
 - Patrones de reintento
 - Convención de errores
 - Endpoints funcionales
-- Stack y versiones (derivado de tu build)
+- Stack y versiones 
 - Troubleshooting
 - Notas finales
 
@@ -64,8 +64,12 @@ Servicio REST **reactivo** con **arquitectura hexagonal**, persistencia **no blo
 - Usuario semilla para autenticación de pruebas:
     - **username:** juan
     - **password:** password
-- Cambiar estas credenciales en ambientes productivos.
+## Usuario por defecto
 
+- Se creó un usuario **admin** por defecto.
+  > Usar este usuario para pruebas.
+
+- Todos los usuarios creados por defecto tendrán el rol **user**.
 ---
 
 ## Seguridad (JWT)
@@ -111,7 +115,7 @@ Servicio REST **reactivo** con **arquitectura hexagonal**, persistencia **no blo
 
 ---
 
-## Stack y versiones (derivado de tu build)
+## Stack y versiones
 **Build / Plugins**
 - Java (plugin “java”).
 - Spring Boot **3.5.4** (plugin).
@@ -160,7 +164,6 @@ Servicio REST **reactivo** con **arquitectura hexagonal**, persistencia **no blo
 - **401/403:** asegúrate de haber obtenido el **Bearer token** y de enviarlo en **Authorization**.
 - **Errores R2DBC / timeouts:** revisa la conectividad a MySQL, tamaño del pool y política de reintentos.
 - **Migraciones fallan:** valida la URL JDBC de Flyway y permisos del usuario.
-- **Swagger no carga:** revisa que springdoc esté habilitado y el contexto no esté detrás de un proxy sin configuración de path.
 
 ---
 
