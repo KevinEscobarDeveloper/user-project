@@ -1,0 +1,77 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.4'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.tecnica'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(24)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	//loombok
+	compileOnly("org.projectlombok:lombok:1.18.38")
+	annotationProcessor("org.projectlombok:lombok:1.18.38")
+
+	testCompileOnly("org.projectlombok:lombok:1.18.38")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+
+	//swagger
+	implementation("io.swagger.core.v3:swagger-annotations:2.2.34")
+	implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.6")
+
+	//prometheus
+	implementation("io.micrometer:micrometer-registry-prometheus:1.15.2")
+
+	//jakarta
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+
+	//mapstruct
+	implementation "org.mapstruct:mapstruct:1.6.2"
+	annotationProcessor "org.mapstruct:mapstruct-processor:1.6.2"
+	testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.6.2"
+
+	//r2dbc
+	implementation "io.asyncer:r2dbc-mysql:1.4.1"
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+
+	//flyway
+	implementation 'org.flywaydb:flyway-core:10.13.0'
+	implementation 'org.flywaydb:flyway-mysql:10.13.0'
+
+	//mysql conector
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
+	//security
+	implementation("org.springframework.boot:spring-boot-starter-security:3.5.4")
+	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
+
+	//micrometer
+	implementation("org.springframework.boot:spring-boot-starter-actuator:3.5.3")
+	implementation("io.micrometer:micrometer-registry-prometheus:1.14.9")
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
