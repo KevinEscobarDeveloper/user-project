@@ -2,7 +2,7 @@ package com.tecnica.prueba.application.usercase;
 
 import com.tecnica.prueba.application.dto.response.ClientDtoResponse;
 import com.tecnica.prueba.application.dto.response.PageResponse;
-import com.tecnica.prueba.application.mappers.ClientApplicationMapper;
+import com.tecnica.prueba.adapters.mappers.ClientApplicationMapper;
 import com.tecnica.prueba.domain.entity.Client;
 import com.tecnica.prueba.domain.port.in.UserUseCase;
 import com.tecnica.prueba.domain.port.out.MetricsPort;

@@ -48,7 +48,7 @@ springdoc:
     display-operation-id: true
     try-it-out-enabled: true
 server:
-  port: ${PORT:8085}
+  port: ${PORT:8086}
 
 logging:
   level:
